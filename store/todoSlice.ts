@@ -26,11 +26,23 @@ const todoSlice = createSlice({
 
             state.todos = filteredTodos
         },
-        sliceUpdateHandler:(state,action)=>{
-         state.todos=action.payload   
+        sliceUpdateHandler: (state, action) => {
+            //  state.todos=action.payload   
+            // console.log("action.paylload.item", action.payload.updateText.description)
+            let updatedValue = action.payload.updateItem
+            console.log("updated vlaue is", updatedValue);
+            let updateText = state.todos.map((item) => {
+                if (action.payload.item.description == item.description) {
+                    return updatedValue
+                }
+                else {
+                    return item
+                }
+            })
+            state.todos = updateText
         }
     }
 })
 
-export const { sliceAddHandler, sliceClearHandler, sliceDeleteHandler,sliceUpdateHandler } = todoSlice.actions
+export const { sliceAddHandler, sliceClearHandler, sliceDeleteHandler, sliceUpdateHandler } = todoSlice.actions
 export default todoSlice.reducer
