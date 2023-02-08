@@ -3,16 +3,16 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import Todo from './Todo'
-// import * as pkg from 'framesync';
-import pkg from 'framesync';
-
-
+import { Provider } from "react-redux";
+import store from '../store/store'
 const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
+
   return (
     <>
-      <Todo/>
+      <Provider store={store}>
+        <Todo />
+      </Provider>
     </>
   )
 }
