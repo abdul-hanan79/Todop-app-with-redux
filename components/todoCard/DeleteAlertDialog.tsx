@@ -21,7 +21,8 @@ interface FocusableElement extends HTMLElement {
 
 const DeleteAlertDialog: React.FC<Props> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef<FocusableElement | null>(null)
+  const cancelRef = React.useRef<HTMLButtonElement | null>(null)
+
 
 
   return (
@@ -38,7 +39,7 @@ const DeleteAlertDialog: React.FC<Props> = (props) => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Customer
+              Delete Entier List
             </AlertDialogHeader>
 
             <AlertDialogBody>
@@ -46,7 +47,7 @@ const DeleteAlertDialog: React.FC<Props> = (props) => {
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
+              <Button ref={cancelRef as MutableRefObject<HTMLButtonElement>} onClick={onClose}>
                 Cancel
               </Button>
 
