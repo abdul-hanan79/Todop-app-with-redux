@@ -1,26 +1,17 @@
 import React, { useState } from 'react'
 import { TodoType } from '../../types/todoType'
-// import { Box } from '@chakra-ui/react'
-// import {
-//     List,
-//     ListItem,
-//     ListIcon,
-//     OrderedList,
-//     UnorderedList,
-// } from '@chakra-ui/react'
 import useTodos from '../../customHooks/useTodos'
 import { useSelector } from 'react-redux'
-import { Box, Checkbox, Input, Text } from '@chakra-ui/react'
-import MainButton from './mainButton'
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Checkbox, Input, Text } from '@chakra-ui/react'
+import MainButton from './MainButton'
 import { DeleteIcon, AddIcon, EditIcon, CheckIcon } from '@chakra-ui/icons'
+import DeleteAlertDialog from './DeleteAlertDialog'
 
 
 const TodoCard = () => {
     const todoList = useSelector((state: any) => state.todoSlice.todos)
     const { inputText,
         setInputText,
-        // todoList,
-        // setTodoList,
         isUpdate,
         setIsUpdate,
         oldItem,
@@ -31,17 +22,23 @@ const TodoCard = () => {
         clearAllHandler,
         deleteHandler,
         editHandler,
-        updateHandler
+        updateHandler,
+        value
     } = useTodos()
     return (
 
         <Box w="100%" h="auto" bg="rgb(209,228,244)" p={3} borderRadius={15}>
+            {value && <Alert status='error'>
+                <AlertIcon />
+                <AlertTitle>List Cannot be empty</AlertTitle>
+                <AlertDescription>Please Enter Your Todo!</AlertDescription>
+            </Alert>}
             <Box display="flex" justifyContent="space-between">
                 {/* <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} /> */}
                 <Input
                     color='#343a40'
                     fontSize='1.2rem'
-                    fontWeight="bold"
+
                     placeholder='Enter your todos'
                     _placeholder={{ color: 'inherit' }}
                     value={inputText}
@@ -52,7 +49,9 @@ const TodoCard = () => {
                 <Box display='grid' gap={1} gridAutoFlow="column dense">
                     {/* <button onClick={addHandler}>Add</button> */}
                     <MainButton onClick={addHandler} icon={<AddIcon boxSize={5} />} />
-                    <MainButton onClick={clearAllHandler} icon={<DeleteIcon boxSize={5} />} />
+                    {/* <MainButton onClick={clearAllHandler} icon={<DeleteIcon boxSize={5} />} /> */}
+                    <DeleteAlertDialog onClick={clearAllHandler} icon={<DeleteIcon boxSize={5} />} />
+
                     {/* <button onClick={clearAllHandler}>Clear</button> */}
                 </Box>
                 {/* } */}
@@ -64,8 +63,9 @@ const TodoCard = () => {
                 todoList.map((item: TodoType, index: number) => {
                     return (
 
-                        <Box key={index} >
-                            <Checkbox bg="white" w="100%" border='1px' borderColor='gray.200' borderRadius={10} p={2}>
+                        <Box key={index} mt={2}  >
+                            {/* checkbox errror */}
+                            <Box bg="white" w="100%" border='1px' borderColor='gray.200' borderRadius={10} p={2}>
                                 {/* <ListIcon color='green.500' /> */}
                                 {isUpdate && item.description == itemDescription ? <Box display='flex' justifyContent="space-between" alignItems="center
                                 "  w="22rem"> <Input
@@ -80,14 +80,15 @@ const TodoCard = () => {
                                     <Text fontSize="1.2rem"
                                     >{item.description}</Text>
                                     <Box display='grid' gap={1} gridAutoFlow="column dense">
-                                        <MainButton onClick={(event: any) => {
-                                            event.preventDefault()
+                                        <MainButton onClick={(event) => {
                                             editHandler(item)
                                         }} icon={<EditIcon boxSize={3} />} />
-                                        <MainButton onClick={() => deleteHandler(item)} icon={<DeleteIcon boxSize={3} />} />
+                                        <DeleteAlertDialog onClick={() => deleteHandler(item)} icon={<DeleteIcon boxSize={3} />} />
+
+                                        {/* <MainButton onClick={() => deleteHandler(item)} icon={<DeleteIcon boxSize={3} />} /> */}
                                     </Box>
                                 </Box>}
-                            </Checkbox>
+                            </Box>
 
                         </Box>
                     )

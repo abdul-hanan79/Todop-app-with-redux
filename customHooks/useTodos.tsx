@@ -11,7 +11,7 @@ const useTodos = () => {
     const [oldItem, setOldItem] = useState({})
     const [itemDescription, setItemDesciption] = useState("")
     const [itemEditInput, setitemEditInput] = useState("")
-
+    const [value, setValue] = useState(false)
     const addHandler = () => {
         console.log("button is clicked")
         if (inputText != "") {
@@ -24,7 +24,14 @@ const useTodos = () => {
 
         }
         else {
-            alert("item cannot be empty")
+            // alert("item cannot be empty")
+            console.log("this is working")
+            setValue(true)
+            console.log("value is", value)
+
+            setTimeout(() => {
+                setValue(false)
+            }, 3000);
         }
     }
 
@@ -50,7 +57,7 @@ const useTodos = () => {
 
     }
 
-    const updateHandler = (item:any) => {
+    const updateHandler = (item: any) => {
         if (itemEditInput != "") {
             let updateItem = {
                 description: itemEditInput
@@ -65,7 +72,14 @@ const useTodos = () => {
             setitemEditInput("")
         }
         else {
-            alert("item cannot be empty")
+            console.log("this is working")
+            setValue(true)
+            console.log("value is", value)
+
+            setTimeout(() => {
+                setValue(false)
+            }, 3000);
+
         }
     }
 
@@ -83,7 +97,8 @@ const useTodos = () => {
         clearAllHandler,
         deleteHandler,
         editHandler,
-        updateHandler
+        updateHandler,
+        value
     }
 }
 
