@@ -9,7 +9,7 @@ import {
   useDisclosure,
   Button,
 } from '@chakra-ui/react'
-export default function DeleteAlertDialog(props) {
+export default function DeleteAlertDialog(props:any) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
 
