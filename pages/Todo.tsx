@@ -4,11 +4,11 @@ import { Box, Text } from "@chakra-ui/react"
 const Todo = () => {
     return (
 
-        <Box w="100%" h="100vh" bgGradient="linear(to-b, rgb(52,131,200), rgb(6,200,250))" display="flex" alignItems="center" justifyContent="center">
+        <Box w="100%" h="100vh" bgGradient="linear(to-b, rgb(52,131,200), rgb(6,200,250))" display="flex" alignItems="center" justifyContent="center" pr={8} pl={8}>
             <Box>
-                <Text bgClip="text"
-                    color={"rgb(6,200,250)"}
-                    fontSize="6xl"
+                <Text align="center" bgClip="text"
+                     bgGradient='linear(to-l, #7928CA, #FF0080)'
+                    fontSize={{ base: '2.2rem', md: '3.2rem', lg: '4.2rem' }}
                     fontWeight="extrabold">Todo List</Text>
                 <TodoCard />
             </Box>

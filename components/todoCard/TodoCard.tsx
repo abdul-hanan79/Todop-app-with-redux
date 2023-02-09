@@ -10,9 +10,10 @@ import { TodoType } from '../../types/todoType'
 // } from '@chakra-ui/react'
 import useTodos from '../../customHooks/useTodos'
 import { useSelector } from 'react-redux'
-import { Box, Input } from '@chakra-ui/react'
+import { Box, Checkbox, Input, Text } from '@chakra-ui/react'
 import MainButton from './mainButton'
-import { DeleteIcon, AddIcon } from '@chakra-ui/icons'
+import { DeleteIcon, AddIcon, EditIcon, CheckIcon } from '@chakra-ui/icons'
+
 
 const TodoCard = () => {
     const todoList = useSelector((state: any) => state.todoSlice.todos)
@@ -35,15 +36,17 @@ const TodoCard = () => {
     return (
 
         <Box w="100%" h="auto" bg="rgb(209,228,244)" p={3} borderRadius={15}>
-            <Box display="flex">
+            <Box display="flex" justifyContent="space-between">
                 {/* <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} /> */}
                 <Input
                     color='#343a40'
                     fontSize='1.2rem'
+                    fontWeight="bold"
                     placeholder='Enter your todos'
                     _placeholder={{ color: 'inherit' }}
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
+                    mr="2"
                 />
                 {/* {isUpdate ? <button onClick={updateHandler}>Update Value</button> :  */}
                 <Box display='grid' gap={1} gridAutoFlow="column dense">
@@ -54,24 +57,37 @@ const TodoCard = () => {
                 </Box>
                 {/* } */}
             </Box>
+            <br />
 
 
             {
-                todoList.map((item: TodoType, index) => {
+                todoList.map((item: TodoType, index: number) => {
                     return (
 
-                        <Box key={index}>
-
-                            <ol>
-                                <li>
-                                    {/* <ListIcon color='green.500' /> */}
-                                    {isUpdate && item.description == itemDescription ? <Box><input type="text" value={itemEditInput} onChange={(e) => setitemEditInput(e.target.value)} /><button onClick={() => updateHandler(item)}>Update</button></Box> : <Box>            {item.description}
-                                        {/* <button onClick={() => editHandler(item)}>edit</button> */}
-                                        <button onClick={() => editHandler(item)}>Edit</button>
-                                        <button onClick={() => deleteHandler(item)}>Delete</button></Box>}
-                                </li>
-
-                            </ol>
+                        <Box key={index} >
+                            <Checkbox bg="white" w="100%" border='1px' borderColor='gray.200' borderRadius={10} p={2}>
+                                {/* <ListIcon color='green.500' /> */}
+                                {isUpdate && item.description == itemDescription ? <Box display='flex' justifyContent="space-between" alignItems="center
+                                "  w="22rem"> <Input
+                                        color='#343a40'
+                                        fontSize='1.2rem'
+                                        placeholder='Enter your todos'
+                                        _placeholder={{ color: 'inherit' }}
+                                        value={itemEditInput}
+                                        onChange={(e) => setitemEditInput(e.target.value)}
+                                    /><MainButton onClick={() => updateHandler(item)} icon={<CheckIcon boxSize={3} />} /></Box> : <Box display='flex' justifyContent="space-between" alignItems="center
+                                "  w="22rem" >
+                                    <Text fontSize="1.2rem"
+                                    >{item.description}</Text>
+                                    <Box display='grid' gap={1} gridAutoFlow="column dense">
+                                        <MainButton onClick={(event: any) => {
+                                            event.preventDefault()
+                                            editHandler(item)
+                                        }} icon={<EditIcon boxSize={3} />} />
+                                        <MainButton onClick={() => deleteHandler(item)} icon={<DeleteIcon boxSize={3} />} />
+                                    </Box>
+                                </Box>}
+                            </Checkbox>
 
                         </Box>
                     )

@@ -5,10 +5,10 @@ import styles from '../styles/Home.module.css'
 import Todo from './Todo'
 import { Provider } from "react-redux";
 import store from '../store/store'
-
+import React, { useEffect } from 'react';
 const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
-
+  
   return (
     <>
       <Provider store={store}>
