@@ -80,7 +80,7 @@ const TodoCard = () => {
                                     <Text fontSize="1.2rem"
                                     >{item.description}</Text>
                                     <Box display='grid' gap={1} gridAutoFlow="column dense">
-                                        <MainButton onClick={(event) => {
+                                        <MainButton onClick={() => {
                                             editHandler(item)
                                         }} icon={<EditIcon boxSize={3} />} />
                                         <DeleteAlertDialog onClick={() => deleteHandler(item)} icon={<DeleteIcon boxSize={3} />} />

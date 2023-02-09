@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MutableRefObject } from 'react';
 import {
   AlertDialog,
   AlertDialogBody,
@@ -8,30 +8,36 @@ import {
   AlertDialogOverlay,
   useDisclosure,
   Button,
-} from '@chakra-ui/react'
-export default function DeleteAlertDialog(props:any) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
+} from '@chakra-ui/react';
+
+interface Props {
+  icon: React.ReactNode;
+  onClick: () => void;
+}
+
+const DeleteAlertDialog: React.FC<Props> = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef<FocusableElement>(null);
 
   return (
     <>
-      <Button colorScheme='red' onClick={onOpen}>
+      <Button colorScheme="red" onClick={onOpen}>
         {props.icon}
       </Button>
 
       <AlertDialog
         isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
+        leastDestructiveRef={cancelRef as MutableRefObject<FocusableElement>}
         onClose={onClose}
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Delete Customer
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure to delte the list? 
+              Are you sure to delete the list?
             </AlertDialogBody>
 
             <AlertDialogFooter>
@@ -39,7 +45,7 @@ export default function DeleteAlertDialog(props:any) {
                 Cancel
               </Button>
 
-              <Button colorScheme='red' onClick={() => {
+              <Button colorScheme="red" onClick={() => {
                 props.onClick();
                 onClose();
               }} ml={3}>
@@ -50,5 +56,7 @@ export default function DeleteAlertDialog(props:any) {
         </AlertDialogOverlay>
       </AlertDialog>
     </>
-  )
-}
+  );
+};
+
+export default DeleteAlertDialog;
