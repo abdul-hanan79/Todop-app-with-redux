@@ -15,9 +15,14 @@ interface Props {
   onClick: () => void;
 }
 
+interface FocusableElement extends HTMLElement {
+  focus: () => void;
+}
+
 const DeleteAlertDialog: React.FC<Props> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef<FocusableElement>(null);
+  const cancelRef = React.useRef<FocusableElement | null>(null)
+
 
   return (
     <>
